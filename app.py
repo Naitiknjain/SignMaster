@@ -1,21 +1,11 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session
-import psycopg2
 import bcrypt
 import random
 import os
+from db_config import get_db_connection  # import DB connection from config
 
 app = Flask(__name__)
-app.secret_key = os.environ.get('SECRET_KEY')
-
-
-# ---------------- DB CONNECTION ----------------
-def get_db_connection():
-    return psycopg2.connect(
-        host="127.0.0.1",
-        database="signmaster",
-        user="postgres",
-        password="system"
-    )
+app.secret_key = os.environ.get('SECRET_KEY', 'fallback_secret_key')  # fallback for local dev
 
 # ---------------- FETCH QUIZ QUESTIONS ----------------
 def get_quiz_questions(quiz_id):
@@ -39,13 +29,13 @@ def get_quiz_questions(quiz_id):
         opts = list(row[3]) if row[3] else []
         if row[2] not in opts:
             opts.append(row[2])
-        random.shuffle(opts)  # shuffle options
+        random.shuffle(opts)
         questions.append({
             'question_text': row[0],
             'question_image': row[1],
             'answer': row[2],
             'options': opts,
-            'quiz_id': quiz_id  # pass quiz_id for image path construction
+            'quiz_id': quiz_id
         })
 
     random.shuffle(questions)
@@ -186,11 +176,9 @@ def take_quiz(quiz_id):
         flash("Please log in first.", "error")
         return redirect(url_for('login'))
 
-    # Fetch questions for this quiz
     questions = get_quiz_questions(quiz_id)
     total = len(questions)
 
-    # Initialize session for quiz progress
     if 'quiz_progress' not in session or session.get('quiz_progress', {}).get('quiz_id') != quiz_id:
         session['quiz_progress'] = {'quiz_id': quiz_id, 'current': 0, 'score': 0, 'answers': []}
 
@@ -207,7 +195,6 @@ def take_quiz(quiz_id):
         progress['current'] += 1
         session['quiz_progress'] = progress
 
-        # If finished, show result
         if progress['current'] >= total:
             score = progress['score']
             session.pop('quiz_progress')
@@ -215,7 +202,6 @@ def take_quiz(quiz_id):
 
         return redirect(url_for('take_quiz', quiz_id=quiz_id))
 
-    # Pass quiz_id to template for image path construction
     return render_template('quiz_multi.html', quiz=question, current=idx+1, total=total, quiz_id=quiz_id)
 
 # ---------------- STATIC PAGES ----------------

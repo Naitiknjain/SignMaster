@@ -1,11 +1,10 @@
+import os
 import psycopg2
 
 def get_db_connection():
-    conn = psycopg2.connect(
-        host="127.0.0.1",
-        port=5432,
-        database="signmaster",
-        user="postgres",
-        password="system"
+    return psycopg2.connect(
+        host=os.environ.get("DB_HOST", "127.0.0.1"),
+        database=os.environ.get("DB_NAME", "signmaster"),
+        user=os.environ.get("DB_USER", "postgres"),
+        password=os.environ.get("DB_PASSWORD", "system")
     )
-    return conn
