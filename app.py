@@ -2,9 +2,11 @@ from flask import Flask, render_template, request, redirect, url_for, flash, ses
 import psycopg2
 import bcrypt
 import random
+import os
 
 app = Flask(__name__)
-app.secret_key = 'signmaster_secret_key'
+app.secret_key = os.environ.get('SECRET_KEY')
+
 
 # ---------------- DB CONNECTION ----------------
 def get_db_connection():
