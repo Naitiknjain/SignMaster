@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Help | SignMaster</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #e0c097, #8b5e3c);
+            color: #2c1c0f;
+            margin: 0;
+        }
+        nav {
+            background: #fff;
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #d2a679, #8b5e3c);
+            background-clip: text; 
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-family: 'Georgia', serif;
+        }
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+        .nav-links a {
+            text-decoration: none;
+            font-weight: 600;
+            color: #5c3b21;
+            padding: 6px 10px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+        .nav-links a:hover {
+            background: linear-gradient(135deg, #d2a679, #8b5e3c);
+            color: #fff;
+        }
+        .help-box {
+            background: #fff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+            text-align: center;
+            width: 500px;
+            margin: 60px auto;
+        }
+        .contact-item {
+            margin: 12px 0;
+            font-size: 16px;
+        }
+        .contact-item b { color: #5c3b21; }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav>
+        <div class="logo">SignMaster</div>
+        <ul class="nav-links">
+            <li><a href="{{ url_for('quiz_list') }}">Home</a></li>
+            <li><a href="{{ url_for('profile') }}">Profile</a></li>
+            <li><a href="{{ url_for('reviews') }}">Reviews</a></li>
+            <li><a href="{{ url_for('about') }}">About</a></li>
+        </ul>
+    </nav>
+
+    <!-- Help Section -->
+    <div class="help-box">
+        <h2>Need Help?</h2>
+        <p class="contact-item"><b>Email:</b> signmaster.support@gmail.com</p>
+        <p class="contact-item"><b>Phone:</b> +91 98765 43210</p>
+        <p class="contact-item"><b>WhatsApp:</b> +91 91234 56789</p>
+        <p class="contact-item"><b>Instagram:</b> @signmaster_official</p>
+    </div>
+</body>
+</html>
+ 

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz Result | SignMaster</title>
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e0c097, #8b5e3c);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            color: #2c1c0f;
+        }
+
+        nav {
+            background: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 40px;
+            border-bottom: 2px solid #d9b38c;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+        nav .logo { font-family: 'Trebuchet MS', sans-serif; font-size:26px; font-weight:bold; color:#5c3b21; letter-spacing:1px; }
+        nav ul { list-style:none; display:flex; gap:22px; }
+        nav ul li a { text-decoration:none; font-weight:600; padding:8px 14px; border-radius:6px; color:#5c3b21; transition: all 0.3s ease; }
+        nav ul li a:hover { background: linear-gradient(135deg, #d2a679, #8b5e3c); color:#fff; }
+
+        main { flex:1; display:flex; justify-content:center; align-items:center; padding:30px; }
+
+        .container {
+            max-width: 500px;
+            width:100%;
+            background:#fff;
+            padding:30px;
+            border-radius:12px;
+            box-shadow:0 8px 20px rgba(0,0,0,0.15);
+            text-align:center;
+        }
+
+        .score { font-size:20px; color:#5c3b21; margin-bottom:25px; }
+
+        .btn {
+            display:inline-block;
+            padding:12px 20px;
+            border-radius:8px;
+            font-weight:600;
+            background: linear-gradient(135deg, #d2a679, #8b5e3c);
+            color:#fff;
+            text-decoration:none;
+            transition: all 0.3s ease;
+        }
+        .btn:hover {
+            background: linear-gradient(135deg, #c08f5a, #70412a);
+            transform: translateY(-2px);
+        }
+
+        footer {
+            background:#fff;
+            border-top:2px solid #d9b38c;
+            color:#5c3b21;
+            text-align:center;
+            padding:15px;
+            font-size:14px;
+        }
+    </style>
+</head>
+<body>
+<nav>
+    <div class="logo">SignMaster</div>
+    <ul>
+        <li><a href="{{ url_for('quiz_list') }}">Home</a></li>
+        <li><a href="{{ url_for('profile') }}">Profile</a></li>
+        <li><a href="{{ url_for('reviews') }}">Reviews</a></li>
+        <li><a href="{{ url_for('help_page') }}">Help</a></li>
+        <li><a href="{{ url_for('about') }}">About</a></li>
+        <li><a href="{{ url_for('logout') }}">Logout</a></li>
+    </ul>
+</nav>
+
+<main>
+    <div class="container">
+        <h1>Quiz Completed!</h1>
+        <p class="score">Your Score: <strong>{{ score }} / {{ total }}</strong></p>
+        <a href="{{ url_for('quiz_list') }}" class="btn">Back to Quizzes</a>
+    </div>
+</main>
+
+<footer>&copy; 2025 SignMaster. All Rights Reserved.</footer>
+</body>
+</html>

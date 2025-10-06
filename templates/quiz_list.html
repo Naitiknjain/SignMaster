@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Home | SignMaster</title>
+<style>
+        /* Reset + Base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e0c097, #8b5e3c); /* Light → Dark brown */
+            color: #2c1c0f;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Navbar */
+        nav {
+            background: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 40px;
+            border-bottom: 2px solid #d9b38c;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+        nav .logo {
+            font-family: 'Trebuchet MS', sans-serif;
+            font-size: 26px;
+            font-weight: bold;
+            color: #5c3b21;
+            letter-spacing: 1px;
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 22px;
+        }
+        nav ul li {
+            display: inline;
+        }
+        nav ul li a {
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 14px;
+            border-radius: 6px;
+            color: #5c3b21;
+            transition: all 0.3s ease;
+        }
+        nav ul li a:hover {
+            background: linear-gradient(135deg, #d2a679, #8b5e3c);
+            color: #fff;
+        }
+
+        /* Page content */
+        main {
+            flex: 1;
+            padding: 30px 50px;
+        }
+
+        /* Flash messages */
+        .message {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 14px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 600;
+        }
+        .success {
+            background: #d2a679;
+            color: #2c1c0f;
+        }
+        .error {
+            background: #8b5e3c;
+            color: #fff;
+        }
+
+        /* Footer */
+        footer {
+            background: #fff;
+            border-top: 2px solid #d9b38c;
+            color: #5c3b21;
+            text-align: center;
+            padding: 15px;
+            font-size: 14px;
+        }
+
+        /* Page Title */
+        .page-title {
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 30px;
+            color: #fff;
+            text-shadow: 1px 2px 5px rgba(0,0,0,0.3);
+        }
+
+        /* Quiz list */
+        .quiz-list {
+            list-style: none;
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 0;
+        }
+        .quiz-list li {
+            background: #fff;
+            margin: 12px 0;
+            padding: 16px 20px;
+            border-radius: 10px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: transform 0.2s ease;
+        }
+        .quiz-list li:hover {
+            transform: translateY(-3px);
+        }
+        .quiz-list strong {
+            font-size: 18px;
+            color: #5c3b21;
+        }
+        .quiz-list a {
+            text-decoration: none;
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 14px;
+            background: linear-gradient(135deg, #d2a679, #8b5e3c);
+            color: #fff;
+            margin-left: 6px;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+        .quiz-list a:hover {
+            background: linear-gradient(135deg, #c08f5a, #70412a);
+            transform: translateY(-2px);
+        }
+        .quiz-list a:active {
+            transform: translateY(1px);
+        }
+
+        /* Welcome Banner */
+        .welcome {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 18px;
+            color: #fff;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+        }
+    </style>
+</head>
+<body>
+<nav>
+<div class="logo">SignMaster</div>
+    <ul>
+        <li><a href="{{ url_for('quiz_list') }}">Home</a></li>
+        <li><a href="{{ url_for('profile') }}">Profile</a></li>
+        <li><a href="{{ url_for('reviews') }}">Reviews</a></li>
+        <li><a href="{{ url_for('help_page') }}">Help</a></li>
+        <li><a href="{{ url_for('about') }}">About</a></li>
+        <li><a href="{{ url_for('logout') }}">Logout</a></li>
+    </ul>
+</nav>
+
+<main>
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="{{ category }}">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+<p class="welcome">Welcome back, <strong>{{ username }}</strong>!</p>
+<h1 class="page-title">Select a Quiz</h1>
+
+<ul class="quiz-list">
+{% for quiz in quizzes %}
+<li>
+<strong>{{ quiz[1] }}</strong>
+<div>
+<a href="{{ url_for('learn', quiz_id=quiz[0]) }}">Learn</a>
+<a href="{{ url_for('take_quiz', quiz_id=quiz[0]) }}">Take Quiz</a>
+</div>
+</li>
+{% endfor %}
+</ul>
+</main>
+
+<footer>&copy; 2025 SignMaster. All Rights Reserved.</footer>
+</body>
+</html>

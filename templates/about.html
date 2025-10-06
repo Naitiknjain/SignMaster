@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>About | SignMaster</title>
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg,#e0c097,#8b5e3c);
+            color:#2c1c0f;
+            min-height:100vh;
+            display:flex;
+            flex-direction:column;
+        }
+        /* Navbar */
+        nav {
+            background:#fff;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            padding:14px 40px;
+            border-bottom:2px solid #d9b38c;
+            box-shadow:0 2px 10px rgba(0,0,0,0.08);
+        }
+        nav .logo {
+            font-family:'Trebuchet MS', sans-serif;
+            font-size:26px;
+            font-weight:bold;
+            color:#5c3b21;
+            letter-spacing:1px;
+        }
+        nav ul { list-style:none; display:flex; gap:22px; }
+        nav ul li { display:inline; }
+        nav ul li a {
+            text-decoration:none;
+            font-weight:600;
+            padding:8px 14px;
+            border-radius:6px;
+            color:#5c3b21;
+            transition:all 0.3s ease;
+        }
+        nav ul li a:hover {
+            background: linear-gradient(135deg,#d2a679,#8b5e3c);
+            color:#fff;
+        }
+        main {
+            flex:1;
+            padding:30px 50px;
+        }
+        .page-title {
+            text-align:center;
+            font-size:32px;
+            margin-bottom:30px;
+            color:#fff;
+            text-shadow:1px 2px 5px rgba(0,0,0,0.3);
+        }
+        .about-container {
+            max-width:700px;
+            margin:0 auto;
+            background:#fff;
+            padding:25px;
+            border-radius:12px;
+            box-shadow:0 6px 15px rgba(0,0,0,0.1);
+            line-height:1.8;
+        }
+        .about-container p {
+            margin-bottom:18px;
+            font-size:16px;
+        }
+        footer {
+            background:#fff;
+            border-top:2px solid #d9b38c;
+            color:#5c3b21;
+            text-align:center;
+            padding:15px;
+            font-size:14px;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">SignMaster</div>
+        <ul>
+            <li><a href="{{ url_for('quiz_list') }}">Home</a></li>
+            <li><a href="{{ url_for('profile') }}">Profile</a></li>
+            <li><a href="{{ url_for('reviews') }}">Reviews</a></li>
+            <li><a href="{{ url_for('help_page') }}">Help</a></li>
+            <li><a href="{{ url_for('about') }}">About</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <h1 class="page-title">About SignMaster</h1>
+        <div class="about-container">
+            <p>Many individuals with disabilities face immense challenges in communicating with the world around them. Simple tasks, social interactions, or learning opportunities can become major obstacles due to the lack of accessible tools.</p>
+            <p>SignMaster aims to bridge this gap by providing a simple, interactive, and educational platform to learn sign language. Our mission is to empower users with the skills to communicate confidently, helping them integrate better into society and achieve personal growth.</p>
+            <p>Through engaging lessons, quizzes, and real-world examples, we hope to make learning sign language not only effective but enjoyable. SignMaster is built with the vision of creating an inclusive environment where communication is never a barrier.</p>
+        </div>
+    </main>
+
+    <footer>&copy; 2025 SignMaster. All Rights Reserved.</footer>
+</body>
+</html>
+ 
