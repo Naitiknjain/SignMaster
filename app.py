@@ -34,9 +34,7 @@ def get_quiz_questions(quiz_id):
 
     questions = []
     for row in rows:
-        # row[3] is already a list in PostgreSQL (ARRAY), no need to split
         opts = list(row[3]) if row[3] else []
-        # Ensure the correct answer is included
         if row[2] not in opts:
             opts.append(row[2])
         random.shuffle(opts)  # shuffle options
@@ -44,10 +42,11 @@ def get_quiz_questions(quiz_id):
             'question_text': row[0],
             'question_image': row[1],
             'answer': row[2],
-            'options': opts
+            'options': opts,
+            'quiz_id': quiz_id  # pass quiz_id for image path construction
         })
 
-    random.shuffle(questions)  # shuffle questions order
+    random.shuffle(questions)
     return questions
 
 # ---------------- HOME ----------------
@@ -186,7 +185,7 @@ def take_quiz(quiz_id):
         return redirect(url_for('login'))
 
     # Fetch questions for this quiz
-    questions = get_quiz_questions(quiz_id)  # returns a list of dicts
+    questions = get_quiz_questions(quiz_id)
     total = len(questions)
 
     # Initialize session for quiz progress
@@ -209,12 +208,13 @@ def take_quiz(quiz_id):
         # If finished, show result
         if progress['current'] >= total:
             score = progress['score']
-            session.pop('quiz_progress')  # reset
+            session.pop('quiz_progress')
             return render_template('quiz_result.html', score=score, total=total)
 
-        return redirect(url_for('take_quiz', quiz_id=quiz_id))  # next question
+        return redirect(url_for('take_quiz', quiz_id=quiz_id))
 
-    return render_template('quiz_multi.html', quiz=question, current=idx+1, total=total)
+    # Pass quiz_id to template for image path construction
+    return render_template('quiz_multi.html', quiz=question, current=idx+1, total=total, quiz_id=quiz_id)
 
 # ---------------- STATIC PAGES ----------------
 @app.route('/reviews')
@@ -244,7 +244,6 @@ def profile():
     try:
         conn = get_db_connection()
         cur = conn.cursor()
-        # Fetch only username and email
         cur.execute("SELECT username, email FROM users WHERE username=%s", (username,))
         user = cur.fetchone()
         cur.close()
@@ -258,11 +257,7 @@ def profile():
         flash("User not found.", "error")
         return redirect(url_for('quiz_list'))
 
-    user_dict = {
-        'username': user[0],
-        'email': user[1]
-    }
-
+    user_dict = {'username': user[0], 'email': user[1]}
     return render_template('profile.html', user=user_dict)
 
 # ---------------- RUN ----------------

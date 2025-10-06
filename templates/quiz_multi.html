@@ -5,6 +5,7 @@
     <title>Quiz | SignMaster</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #e0c097, #8b5e3c);
@@ -14,7 +15,6 @@
             flex-direction: column;
         }
 
-        /* Navbar */
         nav {
             background: #fff;
             display: flex;
@@ -24,6 +24,7 @@
             border-bottom: 2px solid #d9b38c;
             box-shadow: 0 2px 10px rgba(0,0,0,0.08);
         }
+
         nav .logo {
             font-family: 'Trebuchet MS', sans-serif;
             font-size: 26px;
@@ -31,11 +32,13 @@
             color: #5c3b21;
             letter-spacing: 1px;
         }
+
         nav ul {
             list-style: none;
             display: flex;
             gap: 22px;
         }
+
         nav ul li a {
             text-decoration: none;
             font-weight: 600;
@@ -44,12 +47,18 @@
             color: #5c3b21;
             transition: all 0.3s ease;
         }
+
         nav ul li a:hover {
             background: linear-gradient(135deg, #d2a679, #8b5e3c);
             color: #fff;
         }
 
-        main { flex: 1; padding: 30px 50px; display: flex; justify-content: center; }
+        main {
+            flex: 1;
+            padding: 30px 50px;
+            display: flex;
+            justify-content: center;
+        }
 
         .container {
             max-width: 650px;
@@ -99,6 +108,7 @@
             cursor: pointer;
             transition: all 0.3s ease;
         }
+
         form.options button:hover {
             background: linear-gradient(135deg, #c08f5a, #70412a);
             transform: translateY(-2px);
@@ -111,6 +121,7 @@
             border-radius: 6px;
             margin-bottom: 12px;
         }
+
         .flash.error {
             background: #8b5e3c;
             color: #fff;
@@ -156,7 +167,7 @@
         <p class="question-text">{{ quiz.question_text }}</p>
 
         {% if quiz.question_image %}
-            <img src="{{ url_for('static', filename=quiz.question_image) }}" alt="Question Image" class="question-image">
+        <img src="{{ url_for('static', filename='images/quiz' ~ quiz_id|string ~ '/' ~ quiz.question_image) }}" class="question-image">
         {% endif %}
 
         <form method="POST" class="options">
